@@ -9,6 +9,7 @@ const messageInput = document.getElementById('message-input');
 const sendBtn = document.getElementById('send-btn');
 const pingBtn = document.getElementById('ping-btn');
 const pingResultEl = document.getElementById('ping-result');
+const qrcodeEl = document.getElementById('qrcode');
 
 let peer = null;
 let currentConnection = null;
@@ -22,6 +23,21 @@ function initPeer() {
     // サーバーに接続し、自分のIDを取得した時のイベント
     peer.on('open', (id) => {
         myIdEl.textContent = id;
+        
+        // 自分のIDを含む招待URLを作成してQRコードを生成
+        const inviteUrl = window.location.href.split('?')[0] + '?target=' + id;
+        qrcodeEl.innerHTML = ''; // 既存のQRコードをクリア
+        new QRCode(qrcodeEl, {
+            text: inviteUrl,
+            width: 128,
+            height: 128,
+            colorDark : "#000000",
+            colorLight : "#ffffff",
+            correctLevel : QRCode.CorrectLevel.L
+        });
+
+        // URLパラメータに接続先のIDが含まれているかチェック
+        checkUrlParamsAndConnect();
     });
 
     // 他のユーザーから接続要求が来た時のイベント
@@ -139,6 +155,23 @@ function addLog(message, color = 'black') {
     div.style.marginBottom = '5px';
     chatBox.appendChild(div);
     chatBox.scrollTop = chatBox.scrollHeight;
+}
+
+// URLパラメータのチェックと自動接続
+function checkUrlParamsAndConnect() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const targetId = urlParams.get('target');
+    
+    if (targetId) {
+        targetIdInput.value = targetId;
+        addLog(`[System] URLからIDを検出しました: ${targetId}`);
+        // 少し待ってから自動接続（PeerJSの準備完了を確実にするため）
+        setTimeout(() => {
+            connectBtn.click();
+            // 接続試行後、URLからパラメータを消してスッキリさせる
+            window.history.replaceState({}, document.title, window.location.pathname);
+        }, 500);
+    }
 }
 
 // アプリの起動

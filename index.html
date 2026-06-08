@@ -14,6 +14,8 @@
             <h2>あなたの情報</h2>
             <p>Peer ID: <span id="my-id">取得中...</span></p>
             <button id="copy-btn">IDをコピー</button>
+            <div id="qrcode" style="margin-top: 15px; display: flex; justify-content: center;"></div>
+            <p style="font-size: 12px; text-align: center; color: #666;">スマホでスキャンして簡単接続！</p>
         </div>
 
         <div class="panel">
@@ -37,8 +39,9 @@
         </div>
     </div>
 
-    <!-- PeerJSライブラリの読み込み -->
+    <!-- ライブラリの読み込み -->
     <script src="https://unpkg.com/peerjs@1.5.2/dist/peerjs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <script src="main.js"></script>
 </body>
 </html>
