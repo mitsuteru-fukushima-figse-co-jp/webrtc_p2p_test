@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebRTC P2P Test</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>WebRTC P2P テスト</h1>
+        
+        <div class="panel">
+            <h2>あなたの情報</h2>
+            <p>Peer ID: <span id="my-id">取得中...</span></p>
+            <button id="copy-btn">IDをコピー</button>
+        </div>
+
+        <div class="panel">
+            <h2>接続先</h2>
+            <input type="text" id="target-id" placeholder="相手のPeer IDを入力">
+            <button id="connect-btn">接続する</button>
+            <p id="connection-status">未接続</p>
+        </div>
+
+        <div class="panel">
+            <h2>通信テスト</h2>
+            <div id="chat-box"></div>
+            <div class="controls">
+                <input type="text" id="message-input" placeholder="メッセージを入力">
+                <button id="send-btn" disabled>送信</button>
+            </div>
+            <div class="controls" style="margin-top: 10px;">
+                <button id="ping-btn" class="ping-btn" disabled>Pingを測定</button>
+                <span id="ping-result"></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- PeerJSライブラリの読み込み -->
+    <script src="https://unpkg.com/peerjs@1.5.2/dist/peerjs.min.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>
