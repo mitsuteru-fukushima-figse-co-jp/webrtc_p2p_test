@@ -45,7 +45,7 @@ function initPeer() {
 
     peer.on('error', (err) => {
         console.error('PeerJS error:', err);
-        addLog(`エラー: ${err.type}`, 'red');
+        addLog(`[エラー] ${err.type}: ${err.message}`, 'red');
     });
 }
 
@@ -100,6 +100,12 @@ function setupConnection(conn) {
             }
         }
     });
+
+    // 通信上のエラーが発生した時
+    conn.on('error', (err) => {
+        console.error('Connection error:', err);
+        addLog(`[通信エラー] ${conn.peer}: ${err.message}`, 'red');
+    });
 }
 
 // 接続中ユーザー一覧の更新UI
@@ -131,6 +137,7 @@ connectBtn.addEventListener('click', () => {
     // 自分から誰かに接続しに行くので、自分はクライアント（参加者）になる
     isHost = false; 
     
+    addLog(`[System] ${targetId} への接続を試行中...`);
     const conn = peer.connect(targetId);
     setupConnection(conn);
 });
