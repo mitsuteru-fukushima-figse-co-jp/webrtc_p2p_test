@@ -19,10 +19,17 @@
         </div>
 
         <div class="panel">
-            <h2>接続先</h2>
-            <input type="text" id="target-id" placeholder="相手のPeer IDを入力">
-            <button id="connect-btn">接続する</button>
-            <p id="connection-status">未接続</p>
+            <h2>接続先 / 参加者</h2>
+            <div style="display: flex; gap: 5px; margin-bottom: 10px;">
+                <input type="text" id="target-id" placeholder="ホストのPeer IDを入力" style="margin-bottom: 0;">
+                <button id="connect-btn">接続する</button>
+            </div>
+            <div id="connection-list-container">
+                <strong>接続中のユーザー:</strong>
+                <ul id="connection-list" style="margin-top: 5px; padding-left: 20px; color: #666;">
+                    <li>誰もいません</li>
+                </ul>
+            </div>
         </div>
 
         <div class="panel">
